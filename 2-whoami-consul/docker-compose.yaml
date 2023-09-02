@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  consul:
+    image: "hashicorp/consul"
+    ports:
+      - "8500:8500"
+    volumes:
+      - ./whoami.json:/consul/config/whoami.json
+      - ./certs:/etc/consul.d/certs/
+    environment:
+      CONSUL_CACERT: /etc/consul.d/certs/cert-and-key.pem
+
+  https-whoami:
+    image: "containous/whoami"
+    hostname: "https-whoami.test.com"
+    ports:
+      - "443:443"
+    volumes:
+      - ./certs:/certs
+    command: ["--port=443", "--cert=/certs/cert.pem", "--key=/certs/key_without_password.pem"]
+  
+  http-whoami:
+    image: "containous/whoami"
+    hostname: "http-whoami.test.com"
+    ports:
+      - "80:80"

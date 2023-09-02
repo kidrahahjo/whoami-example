@@ -1,0 +1,22 @@
+{
+    "services": [
+        {
+            "id": "http-whoami",
+            "name": "http-whoami",
+            "port": 80,
+            "check": {
+                "http": "http://http-whoami.test.com:80/health",
+                "interval": "10s"
+            }
+        },
+        {
+            "id": "https-whoami",
+            "name": "https-whoami",
+            "port": 443,
+            "check": {
+                "http": "https://https-whoami.test.com:443/health",
+                "interval": "10s"
+            }
+        }
+    ]
+}
